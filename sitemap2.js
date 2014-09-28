@@ -12,29 +12,18 @@ request(target, function(error, response, html) {
 	var $ = cheerio.load(html);
 
 		var search = function(){
-			$(html).find('area').each(function() {
-				var url = target + $(this).attr('href');
+			// finding links from imagemaps
+			$(html).find('*').each(function() {
+				var url = $(this).attr('href');
+				if (url == undefined){
+					var trash = url;
+				} else {
+					var url = target + url;
 					console.log(url);
-			});
-			$(html).find('a').each(function() {
-				var url = target + $(this).attr('href');
-				console.log(url);
+				}
 			});
 		};
-
-		var levelIn = function(){
-			console.log('\n\n')
-			request(target, function(error, response, html) { 
-				$(html).find('area').each(function() {
-					var url = $(this).attr('href');
-					console.log(url);
-				});
-			});
-		};
-
-
-
 	};
+
 search();
-levelIn();
 });
