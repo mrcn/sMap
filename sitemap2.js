@@ -10,13 +10,12 @@ request(target, function(error, response, html) {
 		var $ = cheerio.load(html);
 
 		var layerOne = function(){
-			// finding links from imagemaps
 			links = [];
 
+			// search all things and find content of every href
 			$(html).find('*').each(function() {
 				var url = $(this).attr('href');
 				if (url == undefined){
-					var trash = url;
 				} else {
 					links.push(target + url);
 					return links
