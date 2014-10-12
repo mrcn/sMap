@@ -1,7 +1,7 @@
 var request = require('request'),
     cheerio = require('cheerio');
  
-target = "http://masterscoopers.com/"
+target = "http://masterscoopers.com"
 request(target, function(error, response, html) {
   // Hand the HTML response off to Cheerio and assign that to
   //  a local $ variable to provide familiar jQuery syntax.
@@ -14,31 +14,23 @@ request(target, function(error, response, html) {
 			var originLinks = [];
 
 			// search all things and find content of every href
-			$(html).find('*').each(originLinks = function() {
+			$(html).find('*').each(function() {
 				var url = $(this).attr('href');
 				if (url == undefined){
-				// looking to see if i can match the first few 
-				// characters of the path, this will determine 2 things
-				// 1) whether or not i add the URL to the beginning of the path
-				// 2) whether or not it belongs to the sitemap.
-				} else if (url[0] + url[1] + url[2] + url[3] + url[4] == "http:") {
-					console.log("http: match!")
+				} else if (url[0] + url[1] + url[2] + url[3] == "http") {
 					links.push(url);
-				} else if (url[0] + url[1] + url[2] + url [3] == "www.") {
-					console.log("www. match!")
+				} else if (url[0] + url[1] + url[2] == "www") {
 					links.push(url);
+				} else if (url[0] != "/") {
+					links.push(target + "/" + url);
 				} else {
 					links.push(target + url);
 					return links
 				}
 			});
-			console.log("originLinks: " + originLinks)
+			console.log("Round 1 Links: " + "\n" + links)
 			console.log()
-			console.log()
-			console.log()
-			console.log()
-			// console.log(links.length)
-			// console.log(links)
+
 
 
 			for(var i = 0; i < links.length ; i++){
@@ -49,24 +41,29 @@ request(target, function(error, response, html) {
 
 						var url = $(this).attr('href');
 						if (url == undefined){
-						// looking to see if i can match the first few 
-						// characters of the path, this will determine 2 things
-						// 1) whether or not i add the URL to the beginning of the path
-						// 2) whether or not it belongs to the sitemap.
-						} else if (url[0] + url[1] + url[2] + url[3] + url[4] == "http:") {
-							console.log("http: match!")
+						// the challenge here is to 
+						// remove repeat urls that will appear in sub-pages
+						} else if (url == links){
+							console.log('repeat');
+
+						} else if (url[0] + url[1] + url[2] + url[3] == "http") {
 							links.push(url);
-						} else if (url[0] + url[1] + url[2] + url [3] == "www.") {
-							console.log("www. match!")
+						} else if (url[0] + url[1] + url[2] == "www") {
 							links.push(url);
+						} else if (url[0] != "/") {
+							links.push(target + "/" + url);
 						} else {
 							links.push(target + url);
+							console.log(url);
+							// console.log();
+							// console.log("links: " + "\n" + links[i]);
 							return links
+
+
 						}
 
 
 						});
-						// console.log(links.length)
 						// console.log(links)
 						// console.log()
 						// console.log()

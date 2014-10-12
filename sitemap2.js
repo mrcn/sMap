@@ -21,7 +21,16 @@ request(target, function(error, response, html) {
 					return links
 				}
 			});
-			console.log(links)
+		var layerTwo = links.map(function(layerOneLinks){
+			request(layerOneLinks, functino(error, response, html) {
+				if (!error && response.statusCode == 200) {
+
+			};
+
+
+		})
+
+
 		};
 	};
 

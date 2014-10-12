@@ -14,10 +14,12 @@ request(target, function(error, response, html) {
 		var search = function(){
 			$(html).find('area').each(function() {
 				var url = target + $(this).attr('href');
+				siteUrls = [];
 				siteUrls = push.(url);
 					console.log(url);
 			});
 			$(html).find('a').each(function() {
+				
 				siteUrls = push.(url);
 				var url = target + $(this).attr('href');
 				console.log(url);
