@@ -1,3 +1,4 @@
 # sMap
 
-a [Sails](http://sailsjs.org) application
+from root, type
+node sitemap_else-http
